@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login } from "./authAction";
 
-interface INITVALUE {
+export interface INITVALUE {
   user: null | string;
   isAuthenticated: boolean;
   loading: boolean;

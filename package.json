@@ -27,7 +27,9 @@
     "react-router-dom": "^6.18.0",
     "redux-logger": "^3.0.6",
     "styled-components": "^6.1.1",
-    "three": "^0.158.0"
+    "three": "^0.158.0",
+    "xml-parse": "^0.4.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

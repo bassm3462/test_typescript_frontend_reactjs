@@ -1,17 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../Redux/auth/authAction";
+import { ADDuser } from "../../Redux/auth/authAction";
+import { Link } from "react-router-dom";
 function Register() {
-  const [username, setusername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
-  const [Data,setData]=useState({
-    username:"",
-    password:'',
-    address:"",
-    port :"",
-    name:""
-  })
+  const [name, setname] = useState("");
+
   const dispatch = useDispatch();
 
   const handlSubmit = (
@@ -19,9 +15,10 @@ function Register() {
   ) => {
     e.preventDefault();
     const formData: FormData = new FormData();
-    formData.append("username", username);
+    formData.append("email", email);
     formData.append("password", password);
-    // dispatch(Register({ username, password }));
+    formData.append("name", name);
+    dispatch(ADDuser(formData));
   };
   return (
     <>
@@ -47,15 +44,15 @@ function Register() {
                 <div className="card-body p-5 shadow-5 text-center">
                   <h2 className="fw-bold mb-5">Register now</h2>
                   <form onSubmit={(e) => handlSubmit(e)}>
-                    {/* username input */}
+                    {/* email input */}
                     <div className="form-outline mb-4">
                       <input
                         type="text"
                         id="form3Example3"
                         className="form-control"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setusername(e.target.value)}
+                        name="email"
+                        value={name}
+                        onChange={(e) => setname(e.target.value)}
                       />
                       <label className="form-label" htmlFor="form3Example3">
                         name
@@ -63,42 +60,15 @@ function Register() {
                     </div>
                     <div className="form-outline mb-4">
                       <input
-                        type="text"
+                        type="email"
                         id="form3Example3"
                         className="form-control"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setusername(e.target.value)}
+                        name="email"
+                        value={email}
+                        onChange={(e) => setemail(e.target.value)}
                       />
                       <label className="form-label" htmlFor="form3Example3">
-                        address
-                      </label>
-                    </div>
-                    <div className="form-outline mb-4">
-                      <input
-                        type="text"
-                        id="form3Example3"
-                        className="form-control"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setusername(e.target.value)}
-                      />
-                      <label className="form-label" htmlFor="form3Example3">
-                        port
-                      </label>
-                    </div>
-
-                    <div className="form-outline mb-4">
-                      <input
-                        type="text"
-                        id="form3Example3"
-                        className="form-control"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setusername(e.target.value)}
-                      />
-                      <label className="form-label" htmlFor="form3Example3">
-                        username address
+                        email
                       </label>
                     </div>
                     {/* Password input */}
@@ -126,7 +96,7 @@ function Register() {
                     </button>
                     {/* Register buttons */}
                     <div className="text-center">
-                      <p>or sign up with:</p>
+                      <p>or sign up with:<Link to ="/">login</Link></p>
                       <button
                         type="button"
                         className="btn btn-link btn-floating mx-1"

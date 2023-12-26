@@ -3,19 +3,26 @@ import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../Redux/auth/authAction";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { AppDispatch } from "../../Redux/store";
 function Login() {
-  const [username, setusername] = useState("");
+const {success}=useSelector((state:unknown)=>{
+  return state.Auth;
+})
+console.log(success);
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-
+  const dispatch:AppDispatch = useDispatch();
   const handlSubmit = (e: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const formData:FormData=new FormData()
-    formData.append('username', username)
+    formData.append('email', email)
     formData.append('password', password)
-    dispatch(login({username,password}));
+    dispatch(login(formData));
   };
+  if(success){
+    window.location.href="/Dashboard"
+    }
   return (
     <>
   {/* Section: Design Block */}
@@ -23,7 +30,7 @@ function Login() {
     <style
       dangerouslySetInnerHTML={{
         __html:
-          "\n    .cascading-right {\n      margin-right: -50px;\n    }\n\n    @media (max-width: 991.98px) {\n      .cascading-right {\n        margin-right: 0;\n      }\n    }\n  "
+          "\n    .cascading-right {\n margin-right: -50px;\n    }\n\n    @media (max-width: 991.98px) {\n      .cascading-right {\n        margin-right: 0;\n      }\n    }\n  "
       }}
     />
     {/* Jumbotron */}
@@ -40,18 +47,18 @@ function Login() {
             <div className="card-body p-5 shadow-5 text-center">
               <h2 className="fw-bold mb-5">Login now</h2>
               <form onSubmit={(e)=>handlSubmit(e)}>
-                {/* username input */}
+                {/* email input */}
                 <div className="form-outline mb-4">
                   <input
                     type="text"
                     id="form3Example3"
                     className="form-control"
-                    name ="username"
-                    value={username}
-                    onChange={e=>setusername(e.target.value)}
+                    name ="email"
+                    value={email}
+                    onChange={e=>setemail(e.target.value)}
                   />
                   <label className="form-label" htmlFor="form3Example3">
-                    username address
+                    email address
                   </label>
                 </div>
                 {/* Password input */}
